@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+      <!-- Header -->
+    <header class="masthead d-flex">
+        <div class="container text-center my-auto">
+            <img class="img" src="{{ url_for('static', filename='img/Logo2.PNG') }}" />
+            <h2>Application Suite</h2>
+          <h3 class="mb-5">
+            <em>The time has come to change the status quo!</em>
+          </h3>
+          {% if session.logged_in == Null %}
+            <a class="btn btn-outline-light btn-xl" href="/login">Sales</a>
+            <a class="btn btn-outline-success btn-lg" href="/login">Staff Attendance</a>
+            <a class="btn btn-outline-dark btn-lg" href="/login">Payroll</a>
+            <a class="btn btn-outline-danger btn-lg" href="/login">Record</a>
+            <a class="btn btn-outline-info btn-lg" href="/login">Student Visits</a>
+            <a class="btn btn-outline-light btn-lg" href="/login">Farming info</a>
+            <a class="btn btn-outline-success btn-xl" href="/login">Farmers Visits</a>
+          {% else %}
+            <a class="btn btn-outline-light btn-xl" href="/wholesale">Sales</a>
+            <a class="btn btn-outline-success btn-lg" href="/wholesale">Staff Attendance</a>
+            <a class="btn btn-outline-dark btn-lg" href="/wholesale">Payroll</a>
+            <a class="btn btn-outline-danger btn-lg" href="/wholesale">Record</a>
+            <a class="btn btn-outline-info btn-lg" href="/wholesale">Student Visits</a>
+            <a class="btn btn-outline-light btn-lg" href="/wholesale">Farming info</a>
+            <a class="btn btn-outline-success btn-xl" href="/wholesale">Farmers Visits</a>
+          {% endif %}
+          
+        </div>
+        <div class="overlay"></div>
+
+
+        
+      </header>
+{% endblock %}

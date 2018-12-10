@@ -1,0 +1,27 @@
+<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-fw fa-envelope"></i>
+          <span class="d-lg-none">Messages
+            <span class="badge badge-pill badge-primary">12 New</span>
+          </span>
+          <span class="indicator text-primary d-none d-lg-block">
+            <i class="fa fa-fw fa-circle"></i>
+          </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+          <h6 class="dropdown-header">New Messages:</h6>
+          <div class="dropdown-divider"></div>
+          {% for message in messages %}
+          {% if message.split('#')[1] == "Sales" %}
+          <a class="dropdown-item" href="/freadmessage/{{message.split('#')[6]}}">
+            <em>{{ message.split('#')[0]}} ({{ message.split('#')[1]}})</em>
+            <span class="small float-right text-muted">{{ message.split('#')[4]}}</span>
+            <div class="dropdown-message small">{{ message.split('#')[2]}}</div>
+          </a>
+          <div class="dropdown-divider"></div>
+          {% endif %}
+          {% endfor %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item small" href="/fallmessages">View all messages</a>
+        </div>
+      </li>

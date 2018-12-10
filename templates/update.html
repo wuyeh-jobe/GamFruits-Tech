@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>GamFruits</title>
+
+  <!--favicicon-->
+  <link rel="shortcut icon" href="{{ url_for('static', filename= 'img/favicon.PNG') }}">
+  
+  <!-- Bootstrap core CSS-->
+  <link href="{{ url_for('static', filename= 'vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="{{ url_for('static', filename= 'vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="{{ url_for('static', filename= 'css/sb-admin.css') }}" rel="stylesheet">
+  <!-- Page level plugin CSS-->
+  <link href="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/">GamFruits</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        {% include 'includes/_dnav.html' %}
+      <ul class="navbar-nav sidenav-toggler">
+          <li class="nav-item">
+            <a class="nav-link text-center" id="sidenavToggler">
+              <i class="fa fa-fw fa-angle-left"></i>
+            </a>
+          </li>
+        </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <!-- Messages on top navigation -->
+        {% include 'includes/_mnav.html' %}
+          <li class="nav-item">
+              <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                <div class="input-group">
+                  <input class="form-control" type="text" placeholder="Welcome, {{ session.name }}" disabled>
+                </div>
+              </form>
+            </li>
+        <!-- Logout section on top nav-->
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#logout">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+      {% include 'includes/_messages.html' %}
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Update</li>
+      </ol>
+      <hr>
+
+         <!-- Example DataTables Card-->
+         <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-table"></i> Stocks </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Last Updated</th>
+                      <th>Stock type</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Name</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Last Updated</th>
+                      <th>Stock type</th>
+                      <th>Action</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    {% for stock in stock_details %}
+                    <tr>
+                      <td>{{stock.split(",")[0]}}</td>
+                      <td>{{stock.split(",")[1]}}</td>
+                      <td>{{stock.split(",")[2]}}</td>
+                      <td>{{stock.split(",")[3]}}</td>
+                      <td>{{stock.split(",")[4]}}</td>
+                      <td><a href="#" data-toggle="modal" data-target="#{{stock.split(',')[0]}}1"><i class="fa fa-trash-o">Delete |</i></a>
+                        <a href="#" data-toggle="modal" data-target="#{{stock.split(',')[0]}}"><i class="fa fa-pencil-square-o">Edit</i></a></td>
+                    </tr>
+                    <!-- Modal for updating stock -->
+                    <div class="modal fade" id="{{stock.split(',')[0]}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Stock</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body text-center">
+
+                                <form method="POST" action="/update">
+                                    <h1 class="mb-3 font-weight-normal">Update Stock</h1>
+                                          <label>Name</label>
+                                          <input type="text" name="name" class="form-control" placeholder="Name" 
+                                          value="{{stock.split(',')[0]}}">
+                                          <label>Quantity</label>
+                                          <input type="number" name="quantity" class="form-control" placeholder="Quantity" 
+                                          value="{{stock.split(',')[1]}}" min="0" required>
+                                          <label>Price</label>
+                                          <input type="number" name="price" class="form-control" placeholder="Price" value="{{stock.split(',')[2]}}" 
+                                          step="any" min="0"  required>
+                                          <div class="checkbox mb-3"></div>
+                                          <input type="hidden" name="id" class="form-control"
+                                          value="{{stock.split(',')[5]}}">
+                                          <button class="btn btn-lg btn-primary btn-block" type="submit">Done</button>
+                                  </form>
+
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!-- Confirm Deletions -->
+                    <div class="modal fade" id="{{stock.split(',')[0]}}1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete Stock</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body text-center">
+                              <p>Are you sure you want to delete '{{stock.split(',')[0]}}' ?</p>
+                              <form method="POST" action="/delete">
+                                <input type="hidden" name="name" class="form-control" placeholder="Name" 
+                                          value="{{stock.split(',')[0]}}">
+                                <input type="hidden" name="id" class="form-control"
+                                value="{{stock.split(',')[5]}}">
+                                <button type="submit" class="btn btn-danger">
+                                   Yay <i class="fa fa-frown-o"></i></button>
+                                <button type="button" class="btn btn-info" data-dismiss="modal">
+                                  Nay<i class="fa fa-smile-o"> </i></button>
+                              </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card-footer small text-muted">Last Updated {{ctime}}</div>
+          </div>
+       
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © GamFruits 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    {% include 'includes/_logoutnav.html' %}
+
+       <!-- Modal for adding stock -->
+       {% include 'includes/_modalB.html' %}
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{ url_for('static', filename= 'js/sb-admin.min.js') }}"></script>
+    <!-- Custom scripts for this page-->
+    <script src="{{ url_for('static', filename= 'js/sb-admin-datatables.min.js') }}"></script>
+  </div>
+</body>
+
+</html>

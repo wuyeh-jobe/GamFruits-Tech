@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>GamFruits</title>
+    
+      <!--favicicon-->
+      <link rel="shortcut icon" href="{{ url_for('static', filename= 'img/favicon.PNG') }}">
+      
+      <!-- Bootstrap core CSS-->
+      <link href="{{ url_for('static', filename= 'vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+      <!-- Custom fonts for this template-->
+      <link href="{{ url_for('static', filename= 'vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+      <!-- Custom styles for this template-->
+      <link href="{{ url_for('static', filename= 'css/sb-admin.css') }}" rel="stylesheet">
+    
+      <!-- Script tagg -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script type=text/javascript>
+                $(function() {
+                  $('a#process_input').bind('click', function() {
+                    $.getJSON('/background_process', {
+                      proglang: $('input[name="hidden"]').val(),
+                    }, function(data) {
+                      $("#result").text(data.result);
+                    });
+                    return false;
+                  });
+                });
+            </script>
+    </head>
+    
+    <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+      <!-- Navigation-->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a class="navbar-brand" href="/">GamFruits</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+             <!-- Messages on top navigation -->
+            {% include 'includes/_fnav.html' %}
+          <ul class="navbar-nav sidenav-toggler">
+              <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                  <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+              </li>
+            </ul>
+    
+          <ul class="navbar-nav ml-auto">
+            <!-- Messages on top navigation -->
+            {% include 'includes/_mnav2.html' %}
+              <li class="nav-item">
+              <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                <div class="input-group">
+                  <input class="form-control" type="text" placeholder="Welcome, {{ session.name }}" disabled>
+                </div>
+              </form>
+            </li>
+            <!-- Logout section on top nav-->
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="modal" data-target="#logout">
+                <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="content-wrapper">
+          {% include 'includes/_messages.html' %}
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Message</li>
+          </ol>
+          <hr>
+          
+            <div class="jumbotron text-center">
+                    <h6>Sent by:</h6> <em>{{ mtoread.split('#')[0]}} ({{ mtoread.split('#')[1]}}) on 
+                        {{ mtoread.split('#')[5]}} {{ mtoread.split('#')[4]}}</em>
+                    <p><b>Title: </b>{{ mtoread.split('#')[2]}}</p>
+                   <h6> Details :</h6>
+                   <p style="background-color:aqua"> {{ mtoread.split('#')[3]}}</p>
+                    <a href="/fmessages" class="btn btn-primary btn-lg">Reply</a>
+            </div>
+          
+        </div>
+        <!-- /.container-fluid-->
+        <!-- /.content-wrapper-->
+        <footer class="sticky-footer">
+          <div class="container">
+            <div class="text-center">
+              <small>Copyright © GamFruits 2018</small>
+            </div>
+          </div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+          <i class="fa fa-angle-up"></i>
+        </a>
+        
+        <!-- Logout Modal-->
+    {% include 'includes/_logoutnav.html' %}
+    
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{ url_for('static', filename= 'vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename= 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{{ url_for('static', filename= 'vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{{ url_for('static', filename= 'js/sb-admin.min.js') }}"></script>
+      </div>
+    </body>
+    
+    </html>
+    

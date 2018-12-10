@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>GamFruits</title>
+  <!--favicicon-->
+  <link rel="shortcut icon" href="{{ url_for('static', filename= 'img/favicon.PNG') }}">
+  
+  <!-- Bootstrap core CSS-->
+  <link href="{{ url_for('static', filename= 'vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="{{ url_for('static', filename= 'vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="{{ url_for('static', filename= 'css/sb-admin.css') }}" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/">GamFruits</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <!-- Messages on top navigation -->
+        {% include 'includes/_fnav.html' %}
+      <ul class="navbar-nav sidenav-toggler">
+          <li class="nav-item">
+            <a class="nav-link text-center" id="sidenavToggler">
+              <i class="fa fa-fw fa-angle-left"></i>
+            </a>
+          </li>
+        </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <!-- Messages on top navigation -->
+        {% include 'includes/_mnav2.html' %}
+          <li class="nav-item">
+              <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                <div class="input-group">
+                  <input class="form-control" type="text" placeholder="Welcome, {{ session.name }}" disabled>
+                </div>
+              </form>
+            </li>
+        <!-- Logout section on top nav-->
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#logout">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+        {% include 'includes/_messages.html' %}
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Send Message</li>
+      </ol>
+      <hr>
+      <div class="container">
+      <!-- form to send message -->
+      <form method="POST" action="/fmessages" enctype="multipart/form-data">
+              <label for="name" class="sr-only">Title</label>
+              {% if session.mtoread == NULL %}
+              <input type="text" name="title" class="form-control" placeholder="Title" required>
+              {% else %}
+              <input type="text" name="title" class="form-control" placeholder="Title" value="Re: {{session.mtoread}}" required>
+              {% endif %}
+              <div class="checkbox mb-3"></div>
+              <label for="message">Message</label>
+              <textarea class="form-control" name="editor" id="message" rows="3"></textarea>
+              <div class="checkbox mb-3"></div>
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+      </form>
+   </div>
+
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © GamFruits 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    
+    <!-- Logout Modal-->
+    {% include 'includes/_logoutnav.html' %}
+
+    <!--<script src="//cdn.ckeditor.com/4.9.0/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('editor')
+    </script>-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{ url_for('static', filename= 'js/sb-admin.min.js') }}"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/chart.js/Chart.min.js') }}"></script>
+    <!-- Custom scripts for this page-->
+    <script src="{{ url_for('static', filename= 'js/sb-admin-charts.min.js') }}"></script>
+  </div>
+</body>
+
+</html>

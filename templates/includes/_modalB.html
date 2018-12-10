@@ -1,0 +1,44 @@
+         <!-- Modal for adding stock -->
+    <div class="modal fade" id="addStock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Stock</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body text-center">
+
+                    <form method="POST" action="/addStock" enctype="multipart/form-data">
+                        <h1 class="mb-3 font-weight-normal">Add Stock</h1>
+                              <label for="name" class="sr-only">Name</label>
+                              <input type="text" name="name" class="form-control" placeholder="Name" required>
+                              <div class="checkbox mb-3"></div>
+                              <label for="quantity" class="sr-only">Quantity</label>
+                              <input type="number" name="quantity" class="form-control" placeholder="Quantity" min="0" required>
+                              
+                              <label for="sel1">Wholesale/Retail:</label>
+                              <select class="form-control text-left" id="sel1" name="select">
+                                <option value="Wholesale">Wholesale</option>
+                                <option value="Retail">Retail</option>
+                              </select>
+                              <div class="checkbox mb-3"></div>
+                              <label for="price" class="sr-only">Price</label>
+                              <input type="number" name="price" class="form-control" placeholder="Price" 
+                              step="any" min="0"  required>
+                              <div class="checkbox mb-3"></div>
+                              <label for="image" class="sr-only">Upload Image</label>
+                              <input type="file" name="image" class="form-control" accept="image/*"  
+                              placeholder="Upload Image" required>
+                              <div class="checkbox mb-3"></div>
+                              <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+                      </form>
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
